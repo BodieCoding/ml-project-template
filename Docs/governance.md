@@ -1,4 +1,4 @@
-This is aset of governance standards will provide a foundation for managing ML projects effectively and professionally.  Remember to adapt and extend these standards as the project evolves.  Having a well-defined governance framework is crucial for long-term success.
+Governance standards will provide a foundation for managing ML projects effectively and professionally.  Remember to adapt and extend these standards as the project evolves.  Having a well-defined governance framework is crucial for long-term success.
 --
 
 #### I. Versioning and Metadata Management:    
