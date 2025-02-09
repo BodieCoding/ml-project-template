@@ -1,0 +1,33 @@
+name: MyMLProject
+description: A template for machine learning projects
+
+version: 0.1.0  # Project version
+
+components:
+  data:
+    subfolders: ["raw", "processed", "interim"]
+    dependencies: ["pandas", "numpy"]
+    schema: "v1.0" # Version the data schema
+  training:
+    subfolders: ["models", "metrics", "logs"]
+    dependencies: ["scikit-learn", "tensorflow"]
+    model_version: "v1.2" # Track model versions
+    docker_image: "your-registry/training-image:v1.2" # Docker image with tag
+  evaluation:
+    dependencies: ["matplotlib", "seaborn"]
+    metrics_version: "v1.0"
+  src:
+    subfolders: ["features", "models", "utils"]
+    dependencies: ["your-custom-module"]
+  tests:
+    dependencies: ["pytest"]
+  scripts:
+    files: ["train.py", "predict.py", "process_data.py"]
+  notebooks:
+    files: ["data_exploration.ipynb", "model_evaluation.ipynb"]
+  .dockerignore:
+    files: [".git", "__pycache__", "*.pyc"]
+  .gitignore:
+    files: [".git", "__pycache__", "*.pyc", "data/*"]
+
+metadata_store: "project_metadata.json"  # File to store metadata
