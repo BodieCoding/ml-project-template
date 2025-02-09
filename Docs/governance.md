@@ -1,4 +1,6 @@
-!!! This This is aset of governance standards will provide a foundation for managing ML projects effectively and professionally.  Remember to adapt and extend these standards as the project evolves.  Having a well-defined governance framework is crucial for long-term success.
+This is aset of governance standards will provide a foundation for managing ML projects effectively and professionally.  Remember to adapt and extend these standards as the project evolves.  Having a well-defined governance framework is crucial for long-term success.
+--
+
 #### I. Versioning and Metadata Management:    
 1. ###### Project Versioning:
     * [Semantic Versioning](versioning.md) (SemVer) will be used for the overall project version (e.g., v1.2.3). This allows for clear communication of changes between releases.
