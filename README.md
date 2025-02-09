@@ -110,4 +110,4 @@ update_metadata("MyMLProject", "training", "model_version", "v1.1")
 ```
 ---
 # [Governance Docs](Docs/governance.md)
-# [Security Policy](Docs/Security.md)
+# [Security Policy](Docs/SECURITY.md)
