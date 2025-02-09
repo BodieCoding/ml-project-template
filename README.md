@@ -103,3 +103,5 @@ from create_project import update_metadata
 
 update_metadata("MyMLProject", "training", "model_version", "v1.1")
 ```
+---
+# [Governance Docs](Docs/governance.md)
