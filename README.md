@@ -1,4 +1,4 @@
-![logo](Docs\waterworks.png)
+![logo](https://github.com/BodieCoding/ml-project-template/blob/main/Docs/waterworks.png?raw=true)
 
 ---
 
