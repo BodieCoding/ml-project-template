@@ -1,3 +1,7 @@
+![logo](Docs\waterworks.png)
+
+---
+
 # ML Project Template
 
 This repository provides a standardized template for structuring machine learning projects, covering data pipelines, model training, deployment, and version control. It includes a configurable YAML file (`project_config.yaml`) for defining project components, Python scripts for automated project generation, and best practices for reproducibility.
