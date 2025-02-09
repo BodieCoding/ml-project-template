@@ -1,0 +1,61 @@
+name: gcp_data_processing
+description: A template for machine learning pipeline
+
+version: v1.0
+
+governance:  # Add governance section
+  allowed_dataflow_versions: ["v2.40.0", "v2.45.0"]  # Example allowed versions
+  allowed_cloud_function_runtimes: ["python39", "python310"] # Example runtimes
+  service_account_dataflow: "dataflow-sa@your-project.iam.gserviceaccount.com" # SA for DataFlow
+  service_account_file_copy: "file-copy-sa@your-project.iam.gserviceaccount.com" # SA for file copy
+
+components:
+
+  dataflow_initial_schema_xml_to_json:
+    description: DataFlow job to convert XML schemas to JSON and create BigQuery schemas.
+    dependencies: ["apache-beam[gcp]"]
+    gcs_xsd_directory: "gs://your-bucket/xsd_schemas"
+    bq_dataset: "your_dataset"
+    dataflow_version: "v2.45.0" # Specify DataFlow version
+    service_account: $governance.service_account_dataflow # Use governance-defined SA
+
+  cloud_function_copy_files_nfs_to_gcs:
+    description: Cloud Function to copy files from NFS to GCS.
+    dependencies: ["google-cloud-storage", "google-cloud-bigquery"]
+    bq_file_list_table: "your_dataset.file_list_table"
+    nfs_mount_path: "/path/to/nfs/mount"
+    gcs_destination_bucket: "gs://your-bucket/files_to_process"
+    runtime: "python310" # Specify runtime
+    service_account: $governance.service_account_file_copy # Use governance-defined SA
+
+  dataflow_process_files_and_load_to_bq:
+    description: DataFlow job to process files and load into BigQuery.
+    dependencies: ["apache-beam[gcp]"]
+    bq_process_list_table: "your_dataset.process_list_table"
+    gcs_source_bucket: "gs://your-bucket/files_to_process"
+    bq_destination_dataset: "your_dataset"
+    schema_artifacts_gcs_path: "gs://your-bucket/schemas"
+    dataflow_version: "v2.45.0" # Specify DataFlow version
+    service_account: $governance.service_account_dataflow # Use governance-defined SA
+
+  cloud_scheduler_trigger_process_data:
+    description: Cloud Scheduler job to trigger the file processing DataFlow.
+    schedule: "0 0 * * *" # Example cron schedule
+    target_cloud_function: "dataflow_process_files_and_load_to_bq" # Name of Cloud Function
+
+  # ... other components
+
+.dockerignore:
+  files:
+    - ".git"
+    - "__pycache__"
+    - "*.pyc"
+
+.gitignore:
+  files:
+    - ".git"
+    - "__pycache__"
+    - "*.pyc"
+    - "venv"
+
+metadata_store: "project_metadata.json"

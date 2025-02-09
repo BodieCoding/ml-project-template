@@ -1,0 +1,46 @@
+{
+    "name": "gcp_data_processing",
+    "version": "v1.0",
+    "created_at": "2025-02-08T19:59:57.871733",
+    "components": {
+        "dataflow_initial_schema_xml_to_json": {
+            "description": "DataFlow job to convert XML schemas to JSON and create BigQuery schemas.",
+            "dependencies": [
+                "apache-beam[gcp]"
+            ],
+            "gcs_xsd_directory": "gs://your-bucket/xsd_schemas",
+            "bq_dataset": "your_dataset",
+            "dataflow_version": "v2.45.0",
+            "service_account": "$governance.service_account_dataflow"
+        },
+        "cloud_function_copy_files_nfs_to_gcs": {
+            "description": "Cloud Function to copy files from NFS to GCS.",
+            "dependencies": [
+                "google-cloud-storage",
+                "google-cloud-bigquery"
+            ],
+            "bq_file_list_table": "your_dataset.file_list_table",
+            "nfs_mount_path": "/path/to/nfs/mount",
+            "gcs_destination_bucket": "gs://your-bucket/files_to_process",
+            "runtime": "python310",
+            "service_account": "$governance.service_account_file_copy"
+        },
+        "dataflow_process_files_and_load_to_bq": {
+            "description": "DataFlow job to process files and load into BigQuery.",
+            "dependencies": [
+                "apache-beam[gcp]"
+            ],
+            "bq_process_list_table": "your_dataset.process_list_table",
+            "gcs_source_bucket": "gs://your-bucket/files_to_process",
+            "bq_destination_dataset": "your_dataset",
+            "schema_artifacts_gcs_path": "gs://your-bucket/schemas",
+            "dataflow_version": "v2.45.0",
+            "service_account": "$governance.service_account_dataflow"
+        },
+        "cloud_scheduler_trigger_process_data": {
+            "description": "Cloud Scheduler job to trigger the file processing DataFlow.",
+            "schedule": "0 0 * * *",
+            "target_cloud_function": "process_files_dataflow"
+        }
+    }
+}
