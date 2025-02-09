@@ -4,6 +4,11 @@ This repository provides a standardized template for structuring machine learnin
 
 ## Getting Started
 
+`Two sample yaml file have been ran to create the examples below:
+1. [gcp_data_processing](gcp_data_processing)
+2. [MyMLProject](MyMLProject)
+`
+
 ### Installation
 
 1. **Clone the repository:**
